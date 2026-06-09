@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agrinho 2026 - Cultivando a Saúde Mental e Comunitária</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🌱</span>
+                <h1>Agrinho 2026</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link active">Início</a></li>
+                <li><a href="#jogo" class="nav-link">Jogo da Horta</a></li>
+                <li><a href="#dicas" class="nav-link">Dicas de Saúde</a></li>
+                <li><a href="#horta" class="nav-link">Horta Virtual</a></li>
+                <li><a href="#mural" class="nav-link">Mural da Empatia</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Cultivando a Saúde Mental e Comunitária</h2>
+            <p>Sementes do Bem: Bem-estar, Cooperação e Saúde na Escola e no Campo</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('jogo').scrollIntoView({behavior: 'smooth'})">Jogar Agora</button>
+                <button class="btn btn-secondary" onclick="document.getElementById('mural').scrollIntoView({behavior: 'smooth'})">Deixar Mensagem</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOGO DA HORTA -->
+    <section id="jogo" class="jogo-section">
+        <div class="container">
+            <h2 class="section-title">🎮 Jogo da Horta Interativa</h2>
+            <p class="section-subtitle">Plante, cuide e colha seus vegetais! Aprenda sobre saúde enquanto se diverte</p>
+            
+            <div class="jogo-wrapper">
+                <!-- Painel Esquerdo -->
+                <div class="jogo-painel">
+                    <div class="stats-box">
+                        <div class="stat-item">
+                            <span class="stat-icon">💰</span>
+                            <div class="stat-info">
+                                <span class="stat-label">Moedas</span>
+                                <span class="stat-value" id="moedas">100</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">⭐</span>
+                            <div class="stat-info">
+                                <span class="stat-label">Pontos</span>
+                                <span class="stat-value" id="pontos">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">🌾</span>
+                            <div class="stat-info">
+                                <span class="stat-label">Colheitas</span>
+                                <span class="stat-value" id="colheitas">0</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-icon">💚</span>
+                            <div class="stat-info">
+                                <span class="stat-label">Saúde</span>
+                                <span class="stat-value" id="saude">100%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sementes-section">
+                        <h3>🌱 Sementes</h3>
+                        <div class="sementes-container">
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('tomate')" data-seed="tomate">
+                                <span>🍅</span>
+                                <span>Tomate</span>
+                                <span>20💰</span>
+                            </button>
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('alface')" data-seed="alface">
+                                <span>🥬</span>
+                                <span>Alface</span>
+                                <span>15💰</span>
+                            </button>
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('cenoura')" data-seed="cenoura">
+                                <span>🥕</span>
+                                <span>Cenoura</span>
+                                <span>18💰</span>
+                            </button>
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('abobora')" data-seed="abobora">
+                                <span>🎃</span>
+                                <span>Abóbora</span>
+                                <span>25💰</span>
+                            </button>
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('melancia')" data-seed="melancia">
+                                <span>🍉</span>
+                                <span>Melancia</span>
+                                <span>30💰</span>
+                            </button>
+                            <button class="seed-btn" onclick="jogoHorta.selecionarSemente('brocolos')" data-seed="brocolos">
+                                <span>🥦</span>
+                                <span>Brócolis</span>
+                                <span>22💰</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="tools-section">
+                        <h3>🛠️ Ferramentas</h3>
+                        <button class="tool-btn" onclick="jogoHorta.regarTudo()">💧 Regar (5💰)</button>
+                        <button class="tool-btn" onclick="jogoHorta.fertilizarTudo()">🧪 Fertilizar (10💰)</button>
+                        <button class="tool-btn" onclick="jogoHorta.limparHorta()">🧹 Limpar (3💰)</button>
+                        <button class="tool-btn reset" onclick="jogoHorta.resetarHorta()">🔄 Resetar</button>
+                    </div>
+                </div>
+
+                <!-- Horta Central -->
+                <div class="horta-container">
+                    <h3>Sua Horta</h3>
+                    <div class="horta-grid" id="hortaGrid"></div>
+                    <p class="horta-info">💡 Clique em célula vazia para plantar. Clique na planta para cuidar.</p>
+                </div>
+            </div>
+
+            <!-- Dicionário de Plantas -->
+            <div class="plantas-dict">
+                <h3>📚 Informações das Plantas</h3>
+                <div class="plantas-grid">
+                    <div class="planta-card">
+                        <span class="p-emoji">🍅</span>
+                        <strong>Tomate</strong>
+                        <p>Tempo: 30s | Valor: 40💰</p>
+                        <p>Saúde: +15 | Vitamina C e licopeno</p>
+                    </div>
+                    <div class="planta-card">
+                        <span class="p-emoji">🥬</span>
+                        <strong>Alface</strong>
+                        <p>Tempo: 20s | Valor: 25💰</p>
+                        <p>Saúde: +10 | Baixa caloria, rica em fibras</p>
+                    </div>
+                    <div class="planta-card">
+                        <span class="p-emoji">🥕</span>
+                        <strong>Cenoura</strong>
+                        <p>Tempo: 25s | Valor: 35💰</p>
+                        <p>Saúde: +12 | Excelente para a visão</p>
+                    </div>
+                    <div class="planta-card">
+                        <span class="p-emoji">🎃</span>
+                        <strong>Abóbora</strong>
+                        <p>Tempo: 40s | Valor: 50💰</p>
+                        <p>Saúde: +18 | Nutritiva e versátil</p>
+                    </div>
+                    <div class="planta-card">
+                        <span class="p-emoji">🍉</span>
+                        <strong>Melancia</strong>
+                        <p>Tempo: 45s | Valor: 60💰</p>
+                        <p>Saúde: +20 | Hidratante e refrescante</p>
+                    </div>
+                    <div class="planta-card">
+                        <span class="p-emoji">🥦</span>
+                        <strong>Brócolis</strong>
+                        <p>Tempo: 35s | Valor: 45💰</p>
+                        <p>Saúde: +16 | Superalimento com antioxidantes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dicas de Saúde -->
+    <section id="dicas" class="dicas-section">
+        <div class="container">
+            <h2 class="section-title">Dicas de Saúde</h2>
+            <p class="section-subtitle">Alimentação saudável e bem-estar através da natureza</p>
+            
+            <div class="dicas-grid">
+                <div class="dica-card">
+                    <div class="dica-icon">🥗</div>
+                    <h3>Alimentação Saudável</h3>
+                    <p>Produtos frescos da horta escolar são ricos em nutrientes essenciais. Alimentos orgânicos cultivados localmente fortalecem o corpo e a mente.</p>
+                </div>
+                <div class="dica-card">
+                    <div class="dica-icon">🌿</div>
+                    <h3>Contato com a Natureza</h3>
+                    <p>Passar tempo no meio das plantas reduz o estresse, melhora a concentração e promove bem-estar mental. A natureza é a melhor terapia.</p>
+                </div>
+                <div class="dica-card">
+                    <div class="dica-icon">💚</div>
+                    <h3>Bem-estar Integral</h3>
+                    <p>A saúde mental está conectada à saúde física. Exercícios ao ar livre, alimentação saudável e convivência comunitária formam o tripé do bem-estar.</p>
+                </div>
+                <div class="dica-card">
+                    <div class="dica-icon">🌾</div>
+                    <h3>Cooperação Comunitária</h3>
+                    <p>Trabalhar juntos na horta fortalece os laços comunitários e desenvolve valores como solidariedade, responsabilidade e respeito mútuo.</p>
+                </div>
+                <div class="dica-card">
+                    <div class="dica-icon">🥕</div>
+                    <h3>Nutrientes Essenciais</h3>
+                    <p>Vegetais cultivados em casa têm maior concentração de vitaminas e minerais. Cenoura, brócolis e espinafre são poderosos aliados da saúde.</p>
+                </div>
+                <div class="dica-card">
+                    <div class="dica-icon">🌱</div>
+                    <h3>Sustentabilidade</h3>
+                    <p>Cultivar alimentos localmente reduz desperdício, economiza recursos e promove um estilo de vida mais sustentável e consciente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Horta Virtual -->
+    <section id="horta" class="horta-section">
+        <div class="container">
+            <h2 class="section-title">📖 Diário da Horta Virtual</h2>
+            <p class="section-subtitle">Acompanhe o passo a passo para criar sua horta escolar</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker">1</div>
+                    <div class="timeline-content">
+                        <h3>Preparação do Solo</h3>
+                        <p><strong>Semana 1:</strong> Escolha um local com boa iluminação solar (mínimo 6 horas). Prepare o solo removendo ervas daninhas e adicionando adubo orgânico.</p>
+                        <p><strong>Materiais:</strong> Pá, enxada, adubo orgânico, mangueira, luvas</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">2</div>
+                    <div class="timeline-content">
+                        <h3>Escolha das Plantas</h3>
+                        <p><strong>Semana 2:</strong> Selecione plantas adequadas ao clima da região. Para iniciantes, recomenda-se alface, tomate, cenoura e abóbora.</p>
+                        <p><strong>Plantas:</strong> Alface (45-60 dias), Tomate (60-80 dias), Cenoura (70-80 dias), Rúcula (30-40 dias)</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">3</div>
+                    <div class="timeline-content">
+                        <h3>Plantio e Germinação</h3>
+                        <p><strong>Semana 3-4:</strong> Plante as sementes seguindo as instruções de profundidade e espaçamento. Mantenha o solo úmido mas não encharcado.</p>
+                        <p><strong>Cuidados:</strong> Respeitar espaçamento, regar diariamente, proteger de pragas, documentar progresso</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">4</div>
+                    <div class="timeline-content">
+                        <h3>Manutenção e Cuidados</h3>
+                        <p><strong>Semana 5-8:</strong> Remova ervas daninhas regularmente, aplique fertilizantes naturais e monitore pragas.</p>
+                        <p><strong>Tarefas:</strong> Capinar, regar conforme necessário, aplicar adubo foliar, documentar no diário</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-marker">5</div>
+                    <div class="timeline-content">
+                        <h3>Colheita e Celebração</h3>
+                        <p><strong>Semana 9+:</strong> Colha os produtos quando estiverem maduros. Compartilhe com a comunidade escolar!</p>
+                        <p><strong>Celebração:</strong> Organize uma festa da colheita, prepare receitas saudáveis, compartilhe aprendizados</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mural da Empatia -->
+    <section id="mural" class="mural-section">
+        <div class="container">
+            <h2 class="section-title">💬 Mural da Empatia</h2>
+            <p class="section-subtitle">Compartilhe mensagens de empatia, ideias e inspiração com a comunidade</p>
+            
+            <div class="mural-container">
+                <div class="mural-form">
+                    <h3>Deixe sua mensagem</h3>
+                    <form id="mensagemForm">
+                        <input type="text" id="nomeInput" placeholder="Seu nome" required>
+                        <textarea id="mensagemInput" placeholder="Sua mensagem de empatia ou ideia de ação comunitária..." required></textarea>
+                        <select id="categoriaInput" required>
+                            <option value="">Selecione uma categoria</option>
+                            <option value="empatia">Mensagem de Empatia</option>
+                            <option value="acao">Ideia de Ação Comunitária</option>
+                            <option value="inspiracao">Inspiração</option>
+                            <option value="gratidao">Gratidão</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Compartilhar</button>
+                    </form>
+                </div>
+
+                <div class="mural-messages">
+                    <h3>Mensagens Compartilhadas</h3>
+                    <div id="mensagensContainer" class="mensagens-list"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Agrinho - Cultivando a Saúde Mental e Comunitária | Sementes do Bem</p>
+            <p>Tema: Bem-estar, Cooperação e Saúde na Escola e no Campo</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
